@@ -5,16 +5,7 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 
 import { Button } from "@/components/ui/button";
-import {
-  Form,
-  FormControl,
-  FormDescription,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
+import { Form } from "@/components/ui/form";
 import {
   JobMode,
   JobStatus,
@@ -22,6 +13,10 @@ import {
   type CreateAndEditJobType,
 } from "../utils/types";
 import { CustomFormField, CustomFormSelect } from "./FormComponent";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useToast } from "./ui/use-toast";
+import { useRouter } from "next/navigation";
+import { createJobAction } from "@/utils/actions";
 
 export function CreateJobForm() {
   const form = useForm<z.infer<typeof createAndEditJobSchema>>({
@@ -34,10 +29,32 @@ export function CreateJobForm() {
       mode: JobMode.FullTime,
     },
   });
+  const queryClient = useQueryClient();
+  const { toast } = useToast();
+  const router = useRouter();
+  const { mutate, isPending } = useMutation({
+    mutationFn: (values: z.infer<typeof createAndEditJobSchema>) =>
+      createJobAction(values),
+    onSuccess: (data) => {
+      if (!data) {
+        toast({
+          description: "there was an error",
+        });
+        return;
+      }
+      toast({
+        description: "job created",
+      });
+      queryClient.invalidateQueries({ queryKey: ["jobs"] });
+      queryClient.invalidateQueries({ queryKey: ["stats"] });
+      queryClient.invalidateQueries({ queryKey: ["charts"] });
+      router.push("/jobs");
+    },
+  });
   function onSubmit(values: z.infer<typeof createAndEditJobSchema>) {
     // Do something with the form values.
     // ✅ This will be type-safe and validated.
-    console.log(values);
+    mutate(values);
   }
   return (
     <Form {...form}>
@@ -50,9 +67,19 @@ export function CreateJobForm() {
           <CustomFormField name="position" control={form.control} />
           <CustomFormField name="company" control={form.control} />
           <CustomFormField name="location" control={form.control} />
-          <CustomFormSelect name="status" control={form.control} items={Object.values(JobStatus)} />
-          <CustomFormSelect name="mode" control={form.control} items={Object.values(JobMode)} />
-          <Button type="submit" className="capitalize self-end">create job</Button>
+          <CustomFormSelect
+            name="status"
+            control={form.control}
+            items={Object.values(JobStatus)}
+          />
+          <CustomFormSelect
+            name="mode"
+            control={form.control}
+            items={Object.values(JobMode)}
+          />
+          <Button type="submit" className="capitalize self-end">
+            {isPending ? "loading" : "create job"}
+          </Button>
         </div>
       </form>
     </Form>
