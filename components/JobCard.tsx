@@ -44,14 +44,14 @@ const JobCard = ({ job }: JobCardProps) => {
         <CardDescription>{job.company}</CardDescription>
       </CardHeader>
       <Separator />
-      <CardContent className="grid grid-cols-2 gap-4 my-4">
+      <CardContent className="grid grid-cols-2 gap-4 my-4 capitalize">
         <JobInfo icon={<Briefcase className="w-4 h-4" />} text={job.mode} />
         <JobInfo icon={<MapPin className="w-4 h-4" />} text={job.location} />
         <JobInfo
           icon={<CalendarDays className="w-4 h-4" />}
           text={job.createdAt.toLocaleDateString()}
         />
-        <Badge className="flex justify-center max-w-32" variant={badgeVariant[job.status as keyof BadgeVariantProps]}>
+        <Badge className="flex justify-center max-w-32 capitalize" variant={badgeVariant[job.status as keyof BadgeVariantProps]}>
           <JobInfo
             icon={<RadioTower className="w-4 h-4" />}
             text={job.status}
@@ -59,7 +59,7 @@ const JobCard = ({ job }: JobCardProps) => {
         </Badge>
       </CardContent>
       <CardFooter className="flex gap-4 md:gap-8 flex-col md:flex-row">
-        <Button asChild size="sm" className="md:w-24 w-full">
+        <Button asChild size="sm" className="md:w-24 w-full capitalize">
           <Link href={`/jobs/${job.id}`}>edit</Link>
         </Button>
         <DeleteJobBtn id={job.id} />

@@ -27,7 +27,7 @@ const DeleteJobBtn = ({id}:DeleteJobBtnProps) => {
       })
     },
   });
-  return <Button size="sm" disabled={isPending} className="md:w-24 w-full" onClick={() => mutate(id)}>{
+  return <Button size="sm" disabled={isPending} className="md:w-24 w-full capitalize" onClick={() => mutate(id)}>{
     isPending ? 'deleting...':'delete'
   }</Button>;
 };

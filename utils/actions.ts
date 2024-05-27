@@ -5,6 +5,7 @@ import { Job, Prisma } from "@prisma/client";
 import { redirect } from "next/navigation";
 import prisma from "./db";
 import { createAndEditJobSchema, CreateAndEditJobType, JobType } from "./types";
+import dayjs from "dayjs";
 
 type GetAllJobsActionsProps = {
   search?: string;
@@ -141,12 +142,80 @@ export const updateSingleJobAction = async (
         id,
         clerkId: userId!,
       },
-      data:{
-        ...values
-      }
+      data: {
+        ...values,
+      },
     });
   } catch (error) {
     job = null;
   }
   return job;
+};
+
+export const getStatsAction = async (): Promise<{
+  pending: number;
+  interview: number;
+  declined: number;
+}> => {
+  try {
+    const { userId } = auth();
+    const stats = await prisma.job.groupBy({
+      where: {
+        clerkId: userId!,
+      },
+      by: ["status"],
+      _count: {
+        status: true,
+      },
+    });
+    const statsObject = stats.reduce((acc, curr) => {
+      acc[curr.status] = curr._count.status;
+      return acc;
+    }, {} as Record<string, number>);
+    const defaultStats = {
+      pending: 0,
+      declined: 0,
+      interview: 0,
+      ...statsObject,
+    };
+    return defaultStats;
+  } catch (error) {
+    redirect("/jobs");
+  }
+};
+
+export const getChartsDataAction = async (): Promise<
+  Array<{ date: string; count: number }>
+> => {
+  try {
+    const { userId } = auth();
+    const sixMounthAgo = dayjs().subtract(6, "month").toDate();
+    const jobs = await prisma.job.findMany({
+      where: {
+        clerkId: userId!,
+        createdAt: {
+          gte: sixMounthAgo,
+        },
+      },
+      orderBy: {
+        createdAt: "asc",
+      },
+    });
+    let applicationsPerMonth = jobs.reduce((acc, job) => {
+      const date = dayjs(job.createdAt).format("MMM YY");
+      const existingEntry = acc.find((entry) => entry.date === date);
+      if (existingEntry) {
+        existingEntry.count += 1;
+      } else {
+        acc.push({
+          date,
+          count: 1,
+        });
+      }
+      return acc;
+    }, [] as Array<{ date: string; count: number }>);
+    return applicationsPerMonth
+  } catch (error) {
+    redirect("/jobs");
+  }
 };

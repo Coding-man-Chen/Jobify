@@ -20,7 +20,7 @@ const JobsList = () => {
     return <h2 className="text-xl">No Jobs Found...</h2>;
   }
   return (
-    <div className="grid md:grid-cols-2 gap-8 max-w-4xl">
+    <div className="grid md:grid-cols-2 gap-8 max-w-6xl">
       {jobs.map((job) => (
         <JobCard key={job.id} job={job} />
       ))}
