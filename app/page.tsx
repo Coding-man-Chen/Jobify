@@ -7,22 +7,23 @@ import LandingImage from "../assets/main.svg";
 export default function Home() {
   return (
     <main>
-      <header className="max-w-6xl mx-auto px-4 sm:px-8 py-6 mb-20">
+      <header className="max-w-6xl mx-auto px-4 sm:px-8 py-6 mb-20 mt-6">
         <Image src={Logo} alt="logo" />
       </header>
       <section
         id="content"
-        className="flex items-center justify-between max-w-6xl sm:px-8 px-4 mx-auto my-8"
+        className="flex items-center justify-between max-w-6xl sm:px-8 px-4 mx-auto my-6 py-10"
       >
         <div className="flex flex-col items-center sm:items-start justify-start text-left gap-8 flex-1">
-          <h1 className="font-bold capitalize text-5xl sm:text-7xl text-cneter sm:text-left">
+          <h1 className="font-bold capitalize text-5xl sm:text-7xl text-center sm:text-left">
             job <span className="text-primary">tracking</span> app
           </h1>
-          <p className="leading-loose max-w-md text-center sm:text-left">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil
-            corrupti, quam, eos ipsa, molestiae soluta enim hic animi fugiat
-            consectetur unde quae quis impedit labore? Repellat optio
-            perferendis reprehenderit soluta.
+          <p className="leading-loose max-w-lg text-center sm:text-justify">
+            Jobify simplifies your job search by helping you manage and track
+            your application progress. With features to organize your
+            applications and provide detailed status analytics, Jobify ensures
+            you stay on top of your job hunt. Sign up today and streamline your
+            path to the perfect job with Jobify!
           </p>
           <Button asChild>
             <Link href="/add-job"> Get Started</Link>
