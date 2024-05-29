@@ -25,7 +25,7 @@ const JobsList = () => {
   }
   return (
     <>
-    <div className="flex items-center justify-between mb-8">
+    <div className="flex items-center justify-between mb-8 flex-col sm:flex-row gap-4">
       <h2 className="text-xl font-semibold">{count} Jobs Found</h2>
       {
         totalPages < 2 ? null : <ButtonContainer currentPage={page} totalPages={totalPages}/>

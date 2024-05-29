@@ -1,36 +1,61 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Jobify
 
-## Getting Started
+A website which built by Nextjs, to help people and also improve my full stack skills.
 
-First, run the development server:
+## Technical details
+
+- **Generation**: Next.js and App Router
+- **Style**: Tailwind CSS and ShadcnUI
+- **Chart**: Rechart
+- **Database**: PostgreSQL
+- **ORM**: Prisma
+- **Authorization**: Clerk
+
+## What is this?
+
+Jobify simplifies your job search by helping you manage and track your application progress. With features to organize your applications and provide detailed status analytics, Jobify ensures you stay on top of your job hunt. Sign up today and streamline your path to the perfect job with Jobify!
+
+You can try this website on this [Vercel Site](https://jobify-nine-tau.vercel.app/)
+
+## Setup
+
+### 1. Installation
+
+```bash
+npm install
+```
+
+### 2. Set up Environment Variables
+
+You need to create a `.env.local` file in the root directory, and then create your own environment variables below, where the database I recommend using Supabase for hosting.
+
+#### `.env.local`
+
+```ts
+NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=""
+CLERK_SECRET_KEY=""
+DATABASE_URL=""
+DIRECT_URL=""
+```
+
+#### `.env`
+
+In order to ensure compatibility, create an `.env` file in the root directory and create the following environment variables
+
+```ts
+DATABASE_URL=""
+DIRECT_URL=""
+```
+
+### 3. Quick start
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
 
-## Learn More
 
-To learn more about Next.js, take a look at the following resources:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
