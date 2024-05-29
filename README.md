@@ -17,6 +17,11 @@ Jobify simplifies your job search by helping you manage and track your applicati
 
 You can try this website on this [Vercel Site](https://jobify-nine-tau.vercel.app/)
 
+![image](https://github.com/Coding-man-Chen/Jobify/blob/main/IMG/addJob.jpg)
+![image](https://github.com/Coding-man-Chen/Jobify/blob/main/IMG/homePage.jpg)
+![image](https://github.com/Coding-man-Chen/Jobify/blob/main/IMG/jobList.jpg)
+![image](https://github.com/Coding-man-Chen/Jobify/blob/main/IMG/jobsStats.jpg)
+
 ## Setup
 
 ### 1. Installation
